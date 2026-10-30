@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------
     async function submitOrderToTajirCod(orderData) {
         // استبدل الرابط أدناه برابط الـ Webhook الفعلي الذي ستحصل عليه من منصة TajirCod
-        const TAJIRCOD_WEBHOOK_URL = 'https://app.tajircod.com/api/v1/webhook/your-unique-code-here';
+        const TAJIRCOD_WEBHOOK_URL = 'https://app.tajercod.com/webhook/ddb1d227-bdc9-4c09-9690-cd390ad69466/lightfunnels/96b9622a-9a37-4d3b-97a6-086a442294ac';
 
         try {
             const response = await fetch(TAJIRCOD_WEBHOOK_URL, {
