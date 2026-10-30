@@ -140,9 +140,9 @@
 
     <div class="checkout-modal" id="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkout-title" aria-hidden="true">
       <button class="icon-button checkout-close" id="close-checkout" type="button" aria-label="إغلاق">×</button>
-      <div class="eyebrow"><span class="eyebrow-line"></span> خطوة أخيرة</div>
+      <div class="eyebrow" id="checkout-step"><span class="eyebrow-line"></span> خطوة أخيرة</div>
       <h2 id="checkout-title">أين نرسل <em>طلبكم؟</em></h2>
-      <p>املؤوا بياناتكم لإتمام الطلب. في هذا النموذج التجريبي، لا تُرسل البيانات ولا يتم تحصيل أي مبلغ.</p>
+      <p id="checkout-intro">املؤوا بياناتكم لإتمام الطلب. في هذا النموذج التجريبي، لا تُرسل البيانات ولا يتم تحصيل أي مبلغ.</p>
       <form class="checkout-form" id="checkout-form">
         <label>الاسم الكامل<input id="full-name" name="name" autocomplete="name" required minlength="3" placeholder="اسمك الكامل هنا" title="يرجى إدخال الاسم الكامل" /></label>
         <label>رقم الهاتف<input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" minlength="10" maxlength="10" pattern="0[0-9]{9}" required placeholder="06 00 00 00 00" title="يجب أن يحتوي رقم الهاتف على 10 أرقام وأن يبدأ بالرقم 0" /></label>
@@ -150,7 +150,15 @@
         <label>العنوان (اختياري)<input name="address" autocomplete="street-address" placeholder="الحي، الشارع، رقم المنزل" /></label>
         <button class="button button-dark checkout-submit" type="submit">تأكيد الطلب التجريبي <span aria-hidden="true">←</span></button>
       </form>
-      <div class="order-success" id="order-success" hidden><span>✓</span><h3>شكراً لاهتمامكم!</h3><p>تم عرض تجربة الطلب بنجاح. هذا الموقع تجريبي ولا يوجد طلب حقيقي.</p><button class="button button-dark" id="finish-order" type="button">العودة للمتجر</button></div>
+      <div class="order-success" id="order-success" hidden>
+        <span class="success-check" aria-hidden="true">✓</span>
+        <h3 id="success-title">شكراً، طلبك وصلنا <span aria-hidden="true">🤍</span></h3>
+        <p id="success-copy">تم تسجيل طلبك بنجاح. شكراً على ثقتك واختيارك متجرنا.</p>
+        <p id="success-contact">فريقنا غادي يتواصل معاك قريباً بالتليفون أو واتساب لتأكيد التفاصيل والإرسال.</p>
+        <div class="order-info" id="order-info"><b>الدفع عند الاستلام</b><span>·</span><span>التوصيل مجاني</span></div>
+        <button class="order-number" id="order-number" type="button" aria-label="عرض رقم الطلب"><span>عرض رقم الطلب</span><b>◀</b></button>
+        <button class="button button-dark continue-shopping" id="finish-order" type="button">متابعة التسوق</button>
+      </div>
     </div>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
   </body>

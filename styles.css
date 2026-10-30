@@ -230,10 +230,17 @@ h1 em, h2 em { font-family: var(--serif); font-weight: 400; color: #b77b60; }
 .checkout-form input { border: 1px solid #e1ddd5; background: #fff; padding: 11px; outline: 0; font-size: 11px; }
 .checkout-form input:focus { border-color: #b78369; }
 .checkout-submit { margin-top: 7px; width: 100%; }
-.order-success { padding: 30px 0 5px; text-align: center; }
-.order-success > span { display: inline-grid; place-items: center; width: 47px; height: 47px; border-radius: 50%; color: white; background: #82927d; font-size: 21px; }
-.order-success h3 { font-size: 20px; }
-.order-success p { font-size: 11px; line-height: 1.8; color: var(--muted); }
+.order-success { padding: 18px 0 5px; text-align: center; }
+.success-check { display: inline-grid; place-items: center; width: 84px; height: 84px; border-radius: 50%; color: #27867a; background: #edf3ec; border: 8px solid #f7faf7; font-size: 48px; font-weight: 400; line-height: 1; }
+.order-success h3 { font-size: 28px; margin: 16px 0 18px; color: #245c54; }
+.order-success h3 span { filter: grayscale(.2); }
+.order-success p { max-width: 430px; margin: 8px auto; font-size: 18px; line-height: 1.85; color: #555b58; }
+.order-info { display: flex; justify-content: center; align-items: center; gap: 12px; margin: 24px 0 10px; min-height: 58px; border: 1px solid #e2e4df; border-radius: 3px; background: #fafbfa; color: #555b58; font-size: 16px; }
+.order-info b { font-weight: 500; }
+.order-number { width: 100%; min-height: 48px; border: 0; background: transparent; display: flex; align-items: center; justify-content: flex-end; gap: 10px; color: #777b77; font-size: 16px; cursor: pointer; }
+.order-number b { font-size: 13px; }
+.order-number code { direction: ltr; font-family: inherit; color: #245c54; }
+.continue-shopping { width: 100%; min-height: 58px; border-radius: 14px; background: #285f57; font-size: 20px; }
 .toast { position: fixed; z-index: 10; bottom: 24px; left: 50%; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; padding: 12px 18px; background: var(--ink); color: white; font-size: 11px; transition: .2s; }
 .toast.visible { transform: translate(-50%, 0); opacity: 1; }
 
