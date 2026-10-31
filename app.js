@@ -333,3 +333,116 @@ document.addEventListener('DOMContentLoaded', () => {
     if (checkoutForm) {
         checkoutForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            const name = document.getElementById('customer-name')?.value || '';
+            const phone = document.getElementById('customer-phone')?.value || '';
+            const address = document.getElementById('customer-address')?.value || '';
+            const orderId = '#HAYFO-' + Math.floor(10000 + Math.random() * 90000);
+            const orderItems = cart.map(item => ({ ...item }));
+            const summary = getCartSummary(cart);
+            const subtotal = summary.subtotal;
+            const totalQty = summary.totalItems;
+            const discount = summary.discount;
+            const total = summary.total;
+            
+            const orderData = {
+                name,
+                phone,
+                address,
+                product: orderItems.map(i => i.name).join('، '),
+                skuList: orderItems.map(i => `${i.sku} (x${i.quantity})`).join(', '),
+                quantity: totalQty,
+                total
+            };
+
+            await submitOrderToTajirCod(orderData);
+
+            lastOrder = { orderId, name, phone, address, items: orderItems, subtotal, discount, total };
+
+            checkoutForm.hidden = true;
+            if (orderSuccess) orderSuccess.hidden = false;
+            cart = [];
+            updateCartUI();
+        });
+    }
+
+    if (finishOrderBtn) {
+        finishOrderBtn.addEventListener('click', () => {
+            closeCheckout();
+            if (orderSuccess) orderSuccess.hidden = true;
+            if (checkoutForm) checkoutForm.hidden = false;
+        });
+    }
+
+    if (orderNumberBtn) {
+        orderNumberBtn.addEventListener('click', () => {
+            if (!lastOrder) return;
+            showOrderCard(lastOrder);
+        });
+    }
+
+    function showOrderCard(order) {
+        const existing = document.getElementById('order-card-overlay');
+        if (existing) existing.remove();
+
+        const overlayEl = document.createElement('div');
+        overlayEl.id = 'order-card-overlay';
+        overlayEl.style.cssText = 'position:fixed;inset:0;background:rgba(20,19,17,.5);display:grid;place-items:center;z-index:999;padding:16px;';
+
+        const card = document.createElement('div');
+        card.style.cssText = 'background:#fffefa;max-width:480px;width:100%;border-radius:16px;padding:24px;text-align:right;box-shadow:0 12px 40px rgba(0,0,0,.2);max-height:90vh;overflow:auto;';
+
+        const itemsHtml = order.items.map(it => `
+            <div style="display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding:8px 0;">
+                <div>
+                    <span>${it.name} × ${it.quantity}</span>
+                    <small style="display:block;color:#888;font-family:monospace;">SKU: ${it.sku}</small>
+                </div>
+                <strong>${it.price * it.quantity} درهم</strong>
+            </div>
+        `).join('');
+
+        card.innerHTML = `
+            <h2 style="margin:0 0 8px;color:#2c2825;">تفاصيل الطلب</h2>
+            <p style="margin:0 0 16px;color:#666;">رقم الطلب: <strong>${order.orderId}</strong></p>
+            <div style="margin-bottom:16px;">
+                <h3 style="margin:0 0 8px;font-size:15px;">معلومات الزبون</h3>
+                <p style="margin:2px 0;">الاسم: ${order.name}</p>
+                <p style="margin:2px 0;">الهاتف: ${order.phone}</p>
+                <p style="margin:2px 0;">العنوان: ${order.address}</p>
+            </div>
+            <div style="margin-bottom:16px;">
+                <h3 style="margin:0 0 8px;font-size:15px;">المشتريات</h3>
+                ${itemsHtml}
+                ${order.discount ? `<div style="display:flex;justify-content:space-between;padding:4px 0;color:#c0392b;"><span>الخصم</span><span>-${order.discount} درهم</span></div>` : ''}
+                <div style="display:flex;justify-content:space-between;margin-top:8px;font-weight:bold;">
+                    <span>الإجمالي بعد الخصم</span><span>${order.total} درهم</span>
+                </div>
+            </div>
+            <button id="close-order-card" style="background:#2c2825;color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer;width:100%;font-weight:bold;">إغلاق</button>
+        `;
+
+        overlayEl.appendChild(card);
+        document.body.appendChild(overlayEl);
+
+        const closeBtn = card.querySelector('#close-order-card');
+        if (closeBtn) closeBtn.addEventListener('click', () => overlayEl.remove());
+        overlayEl.addEventListener('click', (e) => { if (e.target === overlayEl) overlayEl.remove(); });
+    }
+
+    renderProducts();
+    updateCartUI();
+
+    // عداد تنازلي لعرض الخصم
+    const countdownEl = document.getElementById('countdown');
+    if (countdownEl) {
+        const endTime = Date.now() + 24 * 60 * 60 * 1000;
+        setInterval(() => {
+            const remaining = endTime - Date.now();
+            if (remaining <= 0) { countdownEl.textContent = 'انتهى العرض'; return; }
+            const h = Math.floor(remaining / 3600000);
+            const m = Math.floor((remaining % 3600000) / 60000);
+            const s = Math.floor((remaining % 60000) / 1000);
+            countdownEl.textContent = `ينتهي عرض الخصم خلال: ${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+        }, 1000);
+    }
+});
