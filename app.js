@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // قائمة المنتجات الثلاثة لمتجر هايفو
     const products = [
         {
             id: 1,
@@ -27,21 +26,146 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
 
+    let cart = [];
+
     const productGrid = document.getElementById('product-grid');
+    const cartCount = document.getElementById('cart-count');
+    const drawerCount = document.getElementById('drawer-count');
+    const cartItemsContainer = document.getElementById('cart-items');
+    const emptyCart = document.getElementById('empty-cart');
+    const drawerFooter = document.getElementById('drawer-footer');
+    const cartSubtotal = document.getElementById('cart-subtotal');
+    const cartTotal = document.getElementById('cart-total');
     
-    // عرض المنتجات الثلاثة في الصفحة الرئيسية
-    if (productGrid) {
+    const cartDrawer = document.getElementById('cart-drawer');
+    const overlay = document.getElementById('overlay');
+    const openCartBtn = document.getElementById('open-cart');
+    const closeCartBtn = document.getElementById('close-cart');
+    const continueShoppingBtn = document.getElementById('continue-shopping');
+    const finishOrderBtn = document.getElementById('finish-order');
+    
+    const checkoutModal = document.getElementById('checkout-modal');
+    const closeCheckoutBtn = document.getElementById('close-checkout');
+    const checkoutButton = document.getElementById('checkout-button');
+    const checkoutForm = document.getElementById('checkout-form');
+    const orderSuccess = document.getElementById('order-success');
+
+    function renderProducts() {
+        if (!productGrid) return;
         productGrid.innerHTML = products.map(p => `
-            <div class="product-card" style="border: 1px solid #e0dcd5; padding: 20px; border-radius: 12px; background: #fff; text-align: right; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
-                <span style="background: #2c2825; color: #fff; padding: 4px 10px; font-size: 12px; border-radius: 20px;">${p.badge}</span>
-                <h3 style="margin: 15px 0 10px; font-size: 18px; color: #2c2825;">${p.name}</h3>
-                <p style="color: #666; font-size: 14px; margin-bottom: 15px;">${p.description}</p>
-                <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 15px;">
-                    <strong style="color: #c0392b; font-size: 20px;">${p.price} درهم</strong>
-                    <span style="text-decoration: line-through; color: #999; font-size: 14px;">${p.oldPrice} درهم</span>
+            <div class="product-card" style="border: 1px solid #e0dcd5; padding: 24px; border-radius: 16px; background: #fff; text-align: right; box-shadow: 0 4px 12px rgba(0,0,0,0.03); display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <span style="background: #2c2825; color: #fff; padding: 4px 12px; font-size: 12px; border-radius: 20px; display: inline-block; margin-bottom: 12px;">${p.badge}</span>
+                    <h3 style="margin: 0 0 10px; font-size: 18px; color: #2c2825;">${p.name}</h3>
+                    <p style="color: #666; font-size: 14px; margin-bottom: 20px; line-height: 1.5;">${p.description}</p>
                 </div>
-                <button onclick="alert('تمت الإضافة إلى السلة بنجاح')" style="background: #2c2825; color: #fff; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold;">أضف إلى السلة</button>
+                <div>
+                    <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 15px;">
+                        <strong style="color: #c0392b; font-size: 20px;">${p.price} درهم</strong>
+                        <span style="text-decoration: line-through; color: #999; font-size: 14px;">${p.oldPrice} درهم</span>
+                    </div>
+                    <button onclick="window.addToCart(${p.id})" style="background: #2c2825; color: #fff; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold;">أضف إلى السلة</button>
+                </div>
             </div>
         `).join('');
     }
+
+    window.addToCart = function(productId) {
+        const product = products.find(p => p.id === productId);
+        if (!product) return;
+        const existing = cart.find(item => item.id === productId);
+        if (existing) {
+            existing.quantity += 1;
+        } else {
+            cart.push({ ...product, quantity: 1 });
+        }
+        updateCartUI();
+        openCart();
+    };
+
+    function updateCartUI() {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        if (cartCount) cartCount.textContent = totalItems;
+        if (drawerCount) drawerCount.textContent = `(${totalItems})`;
+
+        if (cart.length === 0) {
+            if (emptyCart) emptyCart.hidden = false;
+            if (cartItemsContainer) cartItemsContainer.innerHTML = '';
+            if (drawerFooter) drawerFooter.hidden = true;
+        } else {
+            if (emptyCart) emptyCart.hidden = true;
+            if (drawerFooter) drawerFooter.hidden = false;
+            if (cartItemsContainer) {
+                cartItemsContainer.innerHTML = cart.map(item => `
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 12px 0;">
+                        <div>
+                            <h4 style="margin: 0; font-size: 14px; color: #2c2825;">${item.name}</h4>
+                            <span style="color: #666; font-size: 13px;">${item.price} درهم × ${item.quantity}</span>
+                        </div>
+                        <button onclick="window.removeFromCart(${item.id})" style="background: none; border: none; color: #c0392b; cursor: pointer; font-size: 16px;">×</button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        if (cartSubtotal) cartSubtotal.textContent = `${subtotal} درهم`;
+        if (cartTotal) cartTotal.textContent = `${subtotal} درهم`;
+    }
+
+    window.removeFromCart = function(productId) {
+        cart = cart.filter(item => item.id !== productId);
+        updateCartUI();
+    };
+
+    function openCart() {
+        if (cartDrawer) cartDrawer.classList.add('open');
+        if (overlay) overlay.hidden = false;
+    }
+
+    function closeCart() {
+        if (cartDrawer) cartDrawer.classList.remove('open');
+        if (overlay) overlay.hidden = true;
+    }
+
+    if (openCartBtn) openCartBtn.addEventListener('click', openCart);
+    if (closeCartBtn) closeCartBtn.addEventListener('click', closeCart);
+    if (continueShoppingBtn) continueShoppingBtn.addEventListener('click', closeCart);
+    if (overlay) overlay.addEventListener('click', () => { closeCart(); closeCheckout(); });
+
+    if (checkoutButton) {
+        checkoutButton.addEventListener('click', () => {
+            closeCart();
+            if (checkoutModal) checkoutModal.classList.add('open');
+            if (overlay) overlay.hidden = false;
+        });
+    }
+
+    if (closeCheckoutBtn) closeCheckoutBtn.addEventListener('click', closeCheckout);
+
+    function closeCheckout() {
+        if (checkoutModal) checkoutModal.classList.remove('open');
+        if (overlay) overlay.hidden = true;
+    }
+
+    if (checkoutForm) {
+        checkoutForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            checkoutForm.hidden = true;
+            if (orderSuccess) orderSuccess.hidden = false;
+            cart = [];
+            updateCartUI();
+        });
+    }
+
+    if (finishOrderBtn) {
+        finishOrderBtn.addEventListener('click', () => {
+            closeCheckout();
+            if (orderSuccess) orderSuccess.hidden = true;
+            if (checkoutForm) checkoutForm.hidden = false;
+        });
+    }
+
+    renderProducts();
+    updateCartUI();
 });
