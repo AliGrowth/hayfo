@@ -1,74 +1,47 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // ----------------------------------------------------
-    // 1. إدارة السلة وعرض المنتجات (Shopping Cart & UI)
-    // ----------------------------------------------------
-    const cart = JSON.parse(localStorage.getItem('hayfo_cart')) || [];
-    
-    // حفظ السلة محلياً
-    function saveCart() {
-        localStorage.setItem('hayfo_cart', JSON.stringify(cart));
-    }
-
-    // ----------------------------------------------------
-    // 2. دالة إرسال الطلب إلى منصة TajirCod (Webhook Integration)
-    // ----------------------------------------------------
-    async function submitOrderToTajirCod(orderData) {
-        // استبدل الرابط أدناه برابط الـ Webhook الفعلي الذي ستحصل عليه من منصة TajirCod
-        const TAJIRCOD_WEBHOOK_URL = 'https://app.tajercod.com/webhook/ddb1d227-bdc9-4c09-9690-cd390ad69466/lightfunnels/96b9622a-9a37-4d3b-97a6-086a442294ac';
-
-        try {
-            const response = await fetch(TAJIRCOD_WEBHOOK_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: orderData.name,         // اسم الزبون
-                    phone: orderData.phone,       // رقم الهاتف
-                    address: orderData.address,   // العنوان / المدينة
-                    product: orderData.product,   // اسم المنتج
-                    quantity: orderData.quantity, // الكمية
-                    totalPrice: orderData.total,  // الثمن الإجمالي
-                    storeLink: 'https://aligrowth.github.io/hayfo/',
-                    createdAt: new Date().toISOString()
-                }),
-            });
-
-            if (response.ok) {
-                console.log('تم إرسال الطلب بنجاح إلى TajirCod');
-                alert('تم تأكيد طلبك بنجاح! سنتصل بك قريباً لتأكيد الشحن.');
-                localStorage.removeItem('hayfo_cart'); // تفريغ السلة بعد الطلب
-                window.location.reload();
-            } else {
-                console.error('فشل في إرسال الطلب من المنصة');
-                alert('حدث خطأ أثناء إرسال الطلب، يرجى المحاولة مجدداً.');
-            }
-        } catch (error) {
-            console.error('خطأ في الاتصال بالشبكة:', error);
-            alert('تأكد من اتصالك بالإنترنت وحاول مرة أخرى.');
+    // قائمة المنتجات الثلاثة لمتجر هايفو
+    const products = [
+        {
+            id: 1,
+            name: "جهاز مساج الرقبة والتدليك Shiatsu",
+            price: 229,
+            oldPrice: 350,
+            description: "جهاز متعدد الوظائف للراحة والاسترخاء وتخفيف آلام الرقبة والكتفين.",
+            badge: "الأكثر مبيعاً"
+        },
+        {
+            id: 2,
+            name: "جهاز مساج الوجه EMS ميني",
+            price: 199,
+            oldPrice: 290,
+            description: "لشد الوجه وتحفيز الكولاجين والعناية اليومية بالبشرة.",
+            badge: "عرض خاص"
+        },
+        {
+            id: 3,
+            name: "مسدس المساج العضلي المحمول",
+            price: 269,
+            oldPrice: 400,
+            description: "لتخفيف تشنجات العضلات واسترخاء الجسم بعد التعب والتمارين.",
+            badge: "جديد"
         }
-    }
+    ];
 
-    // ربط نموذج الطلب (Checkout Form) إذا كان متوفراً في الصفحة
-    const checkoutForm = document.getElementById('checkout-form');
-    if (checkoutForm) {
-        checkoutForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const customerName = document.getElementById('customer-name')?.value || '';
-            const customerPhone = document.getElementById('customer-phone')?.value || '';
-            const customerAddress = document.getElementById('customer-address')?.value || '';
-            
-            const orderData = {
-                name: customerName,
-                phone: customerPhone,
-                address: customerAddress,
-                product: 'منتج من متجر هايفو - Hayfo',
-                quantity: 1,
-                total: 229 // مثال على الثمن بالدرهم حسب محتوى المتجر
-            };
-
-            await submitOrderToTajirCod(orderData);
-        });
+    const productGrid = document.getElementById('product-grid');
+    
+    // عرض المنتجات الثلاثة في الصفحة الرئيسية
+    if (productGrid) {
+        productGrid.innerHTML = products.map(p => `
+            <div class="product-card" style="border: 1px solid #e0dcd5; padding: 20px; border-radius: 12px; background: #fff; text-align: right; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+                <span style="background: #2c2825; color: #fff; padding: 4px 10px; font-size: 12px; border-radius: 20px;">${p.badge}</span>
+                <h3 style="margin: 15px 0 10px; font-size: 18px; color: #2c2825;">${p.name}</h3>
+                <p style="color: #666; font-size: 14px; margin-bottom: 15px;">${p.description}</p>
+                <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 15px;">
+                    <strong style="color: #c0392b; font-size: 20px;">${p.price} درهم</strong>
+                    <span style="text-decoration: line-through; color: #999; font-size: 14px;">${p.oldPrice} درهم</span>
+                </div>
+                <button onclick="alert('تمت الإضافة إلى السلة بنجاح')" style="background: #2c2825; color: #fff; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold;">أضف إلى السلة</button>
+            </div>
+        `).join('');
     }
 });
