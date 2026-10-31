@@ -199,10 +199,9 @@ document.addEventListener('DOMContentLoaded', () => {
         productGrid.innerHTML = products.map(p => `
             <div class="product-card" style="border: 1px solid #e0dcd5; padding: 20px; border-radius: 16px; background: #fff; text-align: right; box-shadow: 0 4px 12px rgba(0,0,0,0.03); display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
-                    <img src="${p.image}" alt="${p.name}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px;" onerror="this.src='https://via.placeholder.com/300x200?text=Hayfo+Luxury'">
+                    <img src="${p.image}" alt="${p.name}" style="width: 100%; height: auto; max-width: 100%; object-fit: contain; object-position: center center; display: block; overflow: visible; background: #f3f0ea; border-radius: 10px; margin-bottom: 15px; padding: 8px; box-sizing: border-box;" onerror="this.src='https://via.placeholder.com/300x200?text=Hayfo+Luxury'">
                     <span style="background: #2c2825; color: #fff; padding: 4px 12px; font-size: 12px; border-radius: 20px; display: inline-block; margin-bottom: 12px;">${p.badge}</span>
                     <h3 style="margin: 0 0 5px; font-size: 18px; color: #2c2825;">${p.name}</h3>
-                    <small style="color: #888; display: block; margin-bottom: 10px; font-family: monospace;">SKU: ${p.sku}</small>
                     <p style="color: #666; font-size: 14px; margin-bottom: 20px; line-height: 1.5;">${p.description}</p>
                 </div>
                 <div>
@@ -246,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 12px 0;">
                         <div>
                             <h4 style="margin: 0; font-size: 14px; color: #2c2825;">${item.name}</h4>
-                            <small style="color: #888; font-family: monospace;">SKU: ${item.sku}</small>
+                            <small hidden style="color: #888; font-family: monospace;">SKU: ${item.sku}</small>
                             <div style="color: #666; font-size: 13px;">${item.price} درهم × ${item.quantity}</div>
                         </div>
                         <button onclick="window.removeFromCart(${item.id})" style="background: none; border: none; color: #c0392b; cursor: pointer; font-size: 16px;">×</button>
@@ -395,7 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div style="display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding:8px 0;">
                 <div>
                     <span>${it.name} × ${it.quantity}</span>
-                    <small style="display:block;color:#888;font-family:monospace;">SKU: ${it.sku}</small>
+                    <small hidden style="display:block;color:#888;font-family:monospace;">SKU: ${it.sku}</small>
                 </div>
                 <strong>${it.price * it.quantity} درهم</strong>
             </div>
