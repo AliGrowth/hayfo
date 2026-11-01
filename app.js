@@ -1,12 +1,14 @@
 ﻿// ===== العد التنازلي =====
 const DURATION = 3 * 60 * 60 * 1000; // 3 ساعات
+const COUNTDOWN_STORAGE_KEY = 'hayfo_countdown_end_time_3h_v1';
 
 function getEndTime() {
-    let end = Number(localStorage.getItem('countdownEnd'));
+    const now = Date.now();
+    let end = Number(localStorage.getItem(COUNTDOWN_STORAGE_KEY));
     // إذا لم يكن هناك وقت مخزن أو قد انتهى الوقت، قم بإنشاء وقت جديد فوراً
-    if (!end || isNaN(end) || Date.now() >= end) {            
-        end = Date.now() + DURATION;
-        localStorage.setItem('countdownEnd', end);
+    if (!Number.isFinite(end) || end <= now || end > now + DURATION) {
+        end = now + DURATION;
+        localStorage.setItem(COUNTDOWN_STORAGE_KEY, String(end));
     }
     return end;
 }
@@ -19,14 +21,26 @@ function startCountdown(el) {
         const h = String(Math.floor(left / 3600000)).padStart(2, '0');
         const m = String(Math.floor((left % 3600000) / 60000)).padStart(2, '0');
         const s = String(Math.floor((left % 60000) / 1000)).padStart(2, '0');
-        el.textContent = ${h}::;
+        el.textContent = `${h}:${m}:${s}`;
         
         if (left === 0) {
-            localStorage.removeItem('countdownEnd');
+            localStorage.removeItem(COUNTDOWN_STORAGE_KEY);
         }
     };
     tick();
     setInterval(tick, 1000);
+}
+
+function initAnnouncementCountdown() {
+    localStorage.removeItem('countdownEnd');
+    localStorage.removeItem('hayfo_timer_end');
+    startCountdown(document.getElementById('countdown'));
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAnnouncementCountdown);
+} else {
+    initAnnouncementCountdown();
 }
 
 // ===== السلة =====
