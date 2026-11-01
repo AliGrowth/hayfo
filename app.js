@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <strong style="color: #c0392b; font-size: 20px;">${p.price} درهم</strong>
                         <span style="text-decoration: line-through; color: #999; font-size: 14px;">${p.oldPrice} درهم</span>
                     </div>
-                    <button type="button" class="add-to-cart" onclick="window.addToCart(${p.id})" style="background: #2c2825; color: #fff; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold;">${translations[currentLang].addToCart}</button>
+                    <button type="button" class="add-to-cart" data-product-id="${p.id}" style="background: #2c2825; color: #fff; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold;">${translations[currentLang].addToCart}</button>
                 </div>
             </div>
         `).join('');
@@ -156,6 +156,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         updateCartUI();
     };
+
+    if (productGrid) {
+        productGrid.addEventListener('click', (event) => {
+            const addButton = event.target.closest('.add-to-cart');
+            if (!addButton) return;
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            const productId = Number(addButton.dataset.productId);
+            if (Number.isFinite(productId)) {
+                window.addToCart(productId);
+            }
+        });
+    }
 
     function updateCartUI() {
         const summary = getCartSummary(cart);
