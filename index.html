@@ -16,7 +16,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <script src="app.js" defer></script>
+    <script src="app.js?v=checkout-20261101-2" defer></script>
   </head>
   <body>
     <div class="announcement">
@@ -24,7 +24,7 @@
       <span class="announcement-dot" aria-hidden="true"></span>
       <span>الدفع عند الاستلام لجميع أنحاء المغرب</span>
       <span class="announcement-dot" aria-hidden="true"></span>
-      <span id="countdown">ينتهي عرض الخصم خلال: 03:00:00</span>
+      <span id="countdown">03:00:00</span>
     </div>
 
     <header class="site-header">
@@ -37,11 +37,6 @@
         <a href="#about">عن الجهاز</a>
       </nav>
       <div class="header-actions">
-        <select id="lang-select" class="icon-button" style="background:transparent;border:1px solid #e7e2da;border-radius:8px;padding:4px 8px;cursor:pointer;" aria-label="اختيار اللغة">
-          <option value="ar">AR</option>
-          <option value="fr">FR</option>
-          <option value="en">EN</option>
-        </select>
         <button class="icon-button cart-trigger" id="open-cart" type="button" aria-label="فتح سلة التسوق">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l1 12H4L5 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>
           <span class="cart-count" id="cart-count">0</span>
@@ -102,108 +97,4 @@
           <div class="story-image-wrap"><div class="story-image" role="img" aria-label="استخدام أجهزة المساج والعناية المنزلية"></div></div>
         </div>
         <div class="story-copy">
-          <div class="eyebrow"><span class="eyebrow-line"></span> اختيارات للعناية المنزلية</div>
-          <h2>لحظات مساج<br /><em>تليق بكم.</em></h2>
-          <p>تصفّحوا مجموعة مختارة من أجهزة المساج والتدليك للوجه والرقبة. راجعوا تعليمات كل جهاز ومواصفاته قبل الاستخدام.</p>
-          <ul class="story-points">
-            <li><span>01</span><div><b>خيارات متنوعة</b><small>أجهزة للمساج والعناية المنزلية.</small></div></li>
-            <li><span>02</span><div><b>اختاروا حسب احتياجكم</b><small>للوجه أو الرقبة أو استخدامات متعددة.</small></div></li>
-            <li><span>03</span><div><b>سهولة الاستخدام في أي مكان</b><small>أجهزة عملية للاستخدام ضمن روتين العناية اليومية.</small></div></li>
-          </ul>
-          <a class="button button-dark" href="#products">تصفّحوا الأجهزة <span aria-hidden="true">←</span></a>
-          <p class="disclaimer">راحتكم وصحتكم هي أولويتنا، وهذه الأجهزة مخصصة لتعزيز العناية اليومية والمساج المنزلي.</p>
-        </div>
-      </section>
-
-      <section class="newsletter">
-        <div>
-          <div class="eyebrow"><span class="eyebrow-line"></span> رسالة من هايفو</div>
-          <h2>لحظتكم للعناية. <em>نحن هنا.</em></h2>
-          <p>سجّلوا لتصلكم نصائح العناية والعروض الجديدة.</p>
-        </div>
-        <form class="newsletter-form" id="newsletter-form">
-          <label class="sr-only" for="newsletter-email">البريد الإلكتروني</label>
-          <input id="newsletter-email" type="email" placeholder="بريدكم الإلكتروني" required />
-          <button type="submit" aria-label="اشتراك">سجّلوا <span aria-hidden="true">←</span></button>
-        </form>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <a class="wordmark footer-brand" href="#home" aria-label="VAURA - الصفحة الرئيسية">
-        <img class="wordmark-logo" src="images/vaura-logo.webp?v=6367169" alt="VAURA Holistic Spa &amp; Beauty" decoding="async">
-      </a>
-      <p>لحظات عناية، على إيقاعكم.</p>
-      <div class="footer-links">
-        <a href="#products">المتجر</a>
-        <a href="#about">عن الجهاز</a>
-        <a href="mailto:hello@hayfo.example">تواصلوا معنا</a>
-      </div>
-      <small>© 2026 VAURA. جميع الحقوق محفوظة.</small>
-    </footer>
-
-    <div class="overlay" id="overlay" hidden></div>
-    
-    <aside class="cart-drawer" id="cart-drawer" aria-label="سلة التسوق" aria-hidden="true">
-      <div class="drawer-header">
-        <div>
-          <span class="eyebrow">اختياراتكم</span>
-          <h2>سلة التسوق <span id="drawer-count">(0)</span></h2>
-        </div>
-        <button class="icon-button close-drawer" id="close-cart" type="button" aria-label="إغلاق السلة">×</button>
-      </div>
-      <div class="cart-items" id="cart-items"></div>
-      <div class="empty-cart" id="empty-cart">
-        <span>♡</span>
-        <b>سلتكم تنتظر اختياراتكم</b>
-        <p>اكتشفوا الأجهزة وأضيفوها إلى السلة.</p>
-        <button class="button button-dark" id="continue-shopping" type="button">مواصلة التسوق</button>
-      </div>
-      <div class="drawer-footer" id="drawer-footer">
-        <div class="shipping-note" id="shipping-note">التوصيل مجاني لجميع الطلبات.</div>
-        <div class="cart-price-note" id="cart-price-note" hidden>توجد منتجات في السلة بسعر عند الطلب. حددي ثمنها قبل إتمام الطلب.</div>
-        <div class="subtotal"><span>المجموع قبل الخصم</span><strong id="cart-subtotal">0</strong></div>
-        <div class="subtotal discount-row" id="cart-discount-row" hidden><span id="cart-discount-label">الخصم</span><strong id="cart-discount">0</strong></div>
-        <div class="subtotal total-row"><span>الإجمالي بعد الخصم</span><strong id="cart-total">0</strong></div>
-        <button class="button button-dark checkout-button" id="checkout-button" type="button">إتمام الطلب <span aria-hidden="true">←</span></button>
-        <small>الدفع عند الاستلام · هذا نموذج عرض تجريبي</small>
-      </div>
-    </aside>
-
-    <!-- نافذة إتمام الطلب (Checkout Modal) -->
-    <div class="checkout-modal" id="checkout-modal" aria-hidden="true">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3>إتمام الطلب</h3>
-          <button class="icon-button" id="close-checkout" type="button" aria-label="إغلاق">×</button>
-        </div>
-        <form class="checkout-form" id="checkout-form">
-          <div class="form-group">
-            <label for="customer-name">الاسم الكامل</label>
-            <input type="text" id="customer-name" placeholder="اسمكم الكريم" required />
-          </div>
-          <div class="form-group">
-            <label for="customer-phone">رقم الهاتف</label>
-            <input type="tel" id="customer-phone" placeholder="06XXXXXXXX" required />
-          </div>
-          <div class="form-group">
-            <label for="customer-address">العنوان والمدينة</label>
-            <input type="text" id="customer-address" placeholder="المدينة، الحي..." required />
-          </div>
-          <button class="button button-dark" type="submit" style="width: 100%; margin-top: 15px;">تأكيد الطلب</button>
-        </form>
-        <div class="order-success" id="order-success" hidden>
-          <span class="success-check" aria-hidden="true">✓</span>
-          <h3 id="success-title">شكراً، طلبك وصلنا <span aria-hidden="true">🤍</span></h3>
-          <p id="success-copy">تم تسجيل طلبك بنجاح. شكراً على ثقتك واختيارك متجرنا.</p>
-          <p id="success-contact">فريقنا غادي يتواصل معاك قريباً بالتليفون أو واتساب لتأكيد التفاصيل والإرسال.</p>
-          <div class="order-info" id="order-info"><b>الدفع عند الاستلام</b><span>·</span><span>التوصيل مجاني</span></div>
-          <button class="order-number" id="order-number" type="button" aria-label="عرض رقم الطلب"><span>عرض رقم الطلب</span><b>◀</b></button>
-          <button class="button button-dark continue-shopping" id="finish-order" type="button" style="width: 100%; margin-top: 15px;">متابعة التسوق</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  </body>
-</html>
+          <div class="eyebrow"><span class="
