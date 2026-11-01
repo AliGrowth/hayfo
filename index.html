@@ -15,7 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=product-fit-20261101-1" />
     <script src="app.js?v=countdown-20261101-5" defer></script>
   </head>
   <body>
@@ -97,4 +97,63 @@
           <div class="story-image-wrap"><div class="story-image" role="img" aria-label="استخدام أجهزة المساج والعناية المنزلية"></div></div>
         </div>
         <div class="story-copy">
-          <div class="eyebrow"><span class="
+          <div class="eyebrow"><span class="eyebrow-line"></span> اختيارات للعناية المنزلية</div>
+          <h2>لحظات مساج<br /><em>تليق بكم.</em></h2>
+          <p>تصفّحوا مجموعة مختارة من أجهزة المساج والتدليك للوجه والرقبة. راجعوا تعليمات كل جهاز ومواصفاته قبل الاستخدام.</p>
+          <ul class="story-points">
+            <li><span>01</span><div><b>خيارات متنوعة</b><small>أجهزة للمساج والعناية المنزلية.</small></div></li>
+            <li><span>02</span><div><b>اختاروا حسب احتياجكم</b><small>للوجه أو الرقبة أو استخدامات متعددة.</small></div></li>
+            <li><span>03</span><div><b>سهولة الاستخدام في أي مكان</b><small>أجهزة عملية للاستخدام ضمن روتين العناية اليومية.</small></div></li>
+          </ul>
+          <a class="button button-dark" href="#products">تصفّحوا الأجهزة <span aria-hidden="true">←</span></a>
+          <p class="disclaimer">راحتكم وصحتكم هي أولويتنا، وهذه الأجهزة مخصصة لتعزيز العناية اليومية والمساج المنزلي.</p>
+        </div>
+      </section>
+
+      <section class="newsletter">
+        <div><div class="eyebrow"><span class="eyebrow-line"></span> رسالة من هايفو</div><h2>لحظتكم للعناية. <em>نحن هنا.</em></h2><p>سجّلوا لتصلكم نصائح العناية والعروض الجديدة.</p></div>
+        <form class="newsletter-form" id="newsletter-form"><label class="sr-only" for="newsletter-email">البريد الإلكتروني</label><input id="newsletter-email" type="email" placeholder="بريدكم الإلكتروني" required /><button type="submit" aria-label="اشتراك">سجّلوا <span aria-hidden="true">←</span></button></form>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a class="wordmark footer-brand" href="#home" aria-label="VAURA - الصفحة الرئيسية"><img class="wordmark-logo" src="images/vaura-logo.webp?v=6367169" alt="VAURA Holistic Spa &amp; Beauty" decoding="async"></a>
+      <p>لحظات عناية، على إيقاعكم.</p>
+      <div class="footer-links"><a href="#products">المتجر</a><a href="#about">عن الجهاز</a><a href="mailto:hello@hayfo.example">تواصلوا معنا</a></div>
+      <small>© 2026 VAURA. جميع الحقوق محفوظة.</small>
+    </footer>
+
+    <div class="overlay" id="overlay" hidden></div>
+    <aside class="cart-drawer" id="cart-drawer" aria-label="سلة التسوق" aria-hidden="true">
+      <div class="drawer-header"><div><span class="eyebrow">اختياراتكم</span><h2>سلة التسوق <span id="drawer-count">(0)</span></h2></div><button class="icon-button close-drawer" id="close-cart" type="button" aria-label="إغلاق السلة">×</button></div>
+      <div class="cart-items" id="cart-items"></div>
+      <div class="empty-cart" id="empty-cart"><span>♡</span><b>سلتكم تنتظر اختياراتكم</b><p>اكتشفوا الأجهزة وأضيفوها إلى السلة.</p><button class="button button-dark" id="continue-shopping" type="button">مواصلة التسوق</button></div>
+      <div class="drawer-footer" id="drawer-footer">
+        <div class="shipping-note" id="shipping-note">التوصيل مجاني لجميع الطلبات.</div>
+        <div class="cart-price-note" id="cart-price-note" hidden>توجد منتجات في السلة بسعر عند الطلب. حددي ثمنها قبل إتمام الطلب.</div>
+        <div class="subtotal"><span>المجموع قبل الخصم</span><strong id="cart-subtotal">0</strong></div>
+        <div class="subtotal discount-row" id="cart-discount-row" hidden><span id="cart-discount-label">الخصم</span><strong id="cart-discount">0</strong></div>
+        <div class="subtotal total-row"><span>الإجمالي بعد الخصم</span><strong id="cart-total">0</strong></div>
+        <button class="button button-dark checkout-button" id="checkout-button" type="button">إتمام الطلب <span aria-hidden="true">←</span></button>
+        <small>الدفع عند الاستلام · هذا نموذج عرض تجريبي</small>
+      </div>
+    </aside>
+
+    <div class="checkout-modal" id="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkout-title" aria-hidden="true">
+      <button class="icon-button checkout-close" id="close-checkout" type="button" aria-label="إغلاق">×</button>
+      <div class="eyebrow"><span class="eyebrow-line"></span> خطوة أخيرة</div>
+      <h2 id="checkout-title">أين نرسل <em>طلبكم؟</em></h2>
+      <p>املؤوا بياناتكم لإتمام الطلب. في هذا النموذج التجريبي، لا تُرسل البيانات ولا يتم تحصيل أي مبلغ.</p>
+      <form class="checkout-form" id="checkout-form">
+        <label>الاسم الكامل<input id="full-name" name="name" autocomplete="name" required minlength="3" placeholder="اسمك الكامل هنا" title="يرجى إدخال الاسم الكامل" /></label>
+        <label>رقم الهاتف<input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" minlength="10" maxlength="10" pattern="0[0-9]{9}" required placeholder="06 00 00 00 00" title="يجب أن يحتوي رقم الهاتف على 10 أرقام وأن يبدأ بالرقم 0" /></label>
+        <label>المدينة<input id="city" name="city" autocomplete="address-level2" required minlength="2" placeholder="المدينة" title="يرجى إدخال اسم المدينة" /></label>
+        <label>العنوان (اختياري)<input name="address" autocomplete="street-address" placeholder="الحي، الشارع، رقم المنزل" /></label>
+        <button class="button button-dark checkout-submit" type="submit">تأكيد الطلب التجريبي <span aria-hidden="true">←</span></button>
+      </form>
+      <div class="order-success" id="order-success" hidden><span>✓</span><h3>شكراً لاهتمامكم!</h3><p>تم عرض تجربة الطلب بنجاح. هذا الموقع تجريبي ولا يوجد طلب حقيقي.</p><button class="button button-dark" id="finish-order" type="button">العودة للمتجر</button></div>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
