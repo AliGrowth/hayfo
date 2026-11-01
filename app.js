@@ -377,29 +377,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const durationSeconds = 3 * 60 * 60;
         const countdownStorageKey = 'hayfo_countdown_end_time_3h_v1';
-        const now = Math.floor(Date.now() / 1000);
-        const savedTime = Number(localStorage.getItem(countdownStorageKey));
         let endTime;
 
         localStorage.removeItem('hayfo_timer_end');
 
-        if (Number.isFinite(savedTime) && savedTime > now) {
-            endTime = savedTime;
-        } else {
+        const resetCountdown = () => {
+            const now = Math.floor(Date.now() / 1000);
             endTime = now + durationSeconds;
             localStorage.setItem(countdownStorageKey, String(endTime));
+        };
+
+        const savedValue = localStorage.getItem(countdownStorageKey);
+        const savedTime = savedValue === null ? NaN : Number(savedValue);
+        const now = Math.floor(Date.now() / 1000);
+
+        if (Number.isFinite(savedTime) && savedTime > now && savedTime <= now + durationSeconds) {
+            endTime = savedTime;
+        } else {
+            resetCountdown();
         }
 
         const updateCountdown = () => {
             const remaining = endTime - Math.floor(Date.now() / 1000);
             if (remaining <= 0) {
-                timerElement.textContent = 'انتهى العرض';
+                resetCountdown();
+            }
+
+            const currentRemaining = endTime - Math.floor(Date.now() / 1000);
+            if (currentRemaining <= 0) {
                 return;
             }
 
-            const hours = Math.floor(remaining / 3600);
-            const minutes = Math.floor((remaining % 3600) / 60);
-            const seconds = remaining % 60;
+            const hours = Math.floor(currentRemaining / 3600);
+            const minutes = Math.floor((currentRemaining % 3600) / 60);
+            const seconds = currentRemaining % 60;
 
             timerElement.textContent = 
                 String(hours).padStart(2, '0') + ':' + 
