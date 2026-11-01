@@ -39,7 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
             successCopy: "تم تسجيل طلبك بنجاح. شكراً على ثقتك واختيارك متجرنا.",
             successContact: "فريقنا غادي يتواصل معاك قريباً بالتليفون أو واتساب لتأكيد التفاصيل والإرسال.",
             viewOrderBtn: "عرض رقم الطلب",
-            finishOrderBtn: "متابعة التسوق"
+            finishOrderBtn: "متابعة التسوق",
+            currency: "درهم"
         },
         fr: {
             announcement: "Livraison gratuite pour toutes les commandes · Paiement à la livraison partout au Maroc",
@@ -79,20 +80,76 @@ document.addEventListener('DOMContentLoaded', () => {
             successCopy: "Votre commande a été enregistrée avec succès. Merci pour votre confiance.",
             successContact: "Notre équipe vous contactera bientôt par téléphone ou WhatsApp pour confirmer.",
             viewOrderBtn: "Afficher le numéro de commande",
-            finishOrderBtn: "Continuer vos achats"
+            finishOrderBtn: "Continuer vos achats",
+            currency: "MAD"
+        },
+        en: {
+            announcement: "Free delivery for all orders · Cash on delivery throughout Morocco",
+            home: "Home",
+            shop: "Shop",
+            about: "About",
+            heroEyebrow: "Care your way",
+            heroTitle: "Moments of care<br />that make <em>a difference.</em>",
+            heroDesc: "Discover massage devices for the face, neck and body, and choose the one that fits your routine.",
+            shopDevices: "Shop devices",
+            aboutProducts: "About our products",
+            clientsCount: "Over 2,400 clients chose Hayfo",
+            rating: "4.9 out of 5",
+            freeShippingBanner: "Free delivery throughout Morocco",
+            freeShippingSub: "No minimum order",
+            codBanner: "Cash on delivery",
+            codSub: "Pay safely after receiving your order",
+            bundleOffer: "Special offer: 15% off when buying 2 devices, and 25% off for 3 or more.",
+            addToCart: "Add to cart",
+            cartTitle: "Shopping cart",
+            emptyCartTitle: "Your cart awaits your choices",
+            emptyCartDesc: "Discover the devices and add them to your cart.",
+            continueShopping: "Continue shopping",
+            subtotalLabel: "Subtotal before discount",
+            totalLabel: "Total after discount",
+            checkoutBtn: "Checkout",
+            cartFooterNote: "Cash on delivery · This is a demo store",
+            modalCheckoutTitle: "Checkout",
+            nameLabel: "Full name",
+            namePlaceholder: "Your name",
+            phoneLabel: "Phone number",
+            phonePlaceholder: "06XXXXXXXX",
+            addressLabel: "Address and city",
+            addressPlaceholder: "City, neighborhood...",
+            confirmOrderBtn: "Confirm order",
+            successTitle: "Thank you, your order has been received 🤍",
+            successCopy: "Your order has been registered successfully. Thank you for your trust.",
+            successContact: "Our team will contact you soon by phone or WhatsApp to confirm the details.",
+            viewOrderBtn: "View order number",
+            finishOrderBtn: "Continue shopping",
+            currency: "MAD"
         }
     };
 
-    let currentLang = 'ar';
+    let currentLang = localStorage.getItem('hayfo_lang') || 'ar';
 
     function changeLanguage(lang) {
         currentLang = lang;
+        localStorage.setItem('hayfo_lang', lang);
         document.documentElement.lang = lang;
         document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        const langSelect = document.getElementById('lang-select');
+        if (langSelect) langSelect.value = lang;
         updateStaticTexts();
         renderProducts();
         updateCartUI();
     }
+
+    const langSelect = document.getElementById('lang-select');
+    if (langSelect) {
+        langSelect.value = currentLang;
+        langSelect.addEventListener('change', (e) => changeLanguage(e.target.value));
+    }
+
+    // Apply on load
+    document.documentElement.lang = currentLang;
+    document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+    if (langSelect) langSelect.value = currentLang;
 
     function updateStaticTexts() {
         const t = translations[currentLang];
@@ -127,34 +184,49 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 1,
             sku: "masseur-électrique5",
-            name: "جهاز مساج الرقبة والتدليك Shiatsu",
             price: 229,
             oldPrice: 350,
-            description: "جهاز متعدد الوظائف للراحة والاسترخاء وتخفيف آلام الرقبة والكتفين.",
-            badge: "الأكثر مبيعاً",
-            image: "images/تدليك%20الرقبة.webp"
+            image: "images/تدليك%20الرقبة.webp",
+            name: { ar: "جهاز مساج الرقبة والتدليك Shiatsu", fr: "Appareil de massage du cou Shiatsu", en: "Shiatsu Neck Massage Device" },
+            description: { ar: "جهاز متعدد الوظائف للراحة والاسترخاء وتخفيف آلام الرقبة والكتفين.", fr: "Appareil multifonction pour le confort, la relaxation et le soulagement des douleurs du cou et des épaules.", en: "Multifunction device for comfort, relaxation and relief of neck and shoulder pain." },
+            badge: { ar: "الأكثر مبيعاً", fr: "Meilleure vente", en: "Best seller" }
         },
         {
             id: 2,
             sku: "appareil-de-massage-facial",
-            name: "جهاز مساج الوجه EMS ميني",
             price: 199,
             oldPrice: 290,
-            description: "لشد الوجه وتحفيز الكولاجين والعناية اليومية بالبشرة.",
-            badge: "عرض خاص",
-            image: "images/face-massage-user.webp"
+            image: "images/face-massage-user.webp",
+            name: { ar: "جهاز مساج الوجه EMS ميني", fr: "Appareil de massage facial EMS mini", en: "Mini EMS Facial Massage Device" },
+            description: { ar: "لشد الوجه وتحفيز الكولاجين والعناية اليومية بالبشرة.", fr: "Pour raffermir le visage, stimuler le collagène et le soin quotidien de la peau.", en: "For firming the face, stimulating collagen and daily skin care." },
+            badge: { ar: "عرض خاص", fr: "Offre spéciale", en: "Special offer" }
         },
         {
             id: 3,
             sku: "massager-pen",
-            name: "مسدس المساج العضلي المحمول",
             price: 269,
             oldPrice: 400,
-            description: "لتخفيف تشنجات العضلات واسترخاء الجسم بعد التعب والتمارين.",
-            badge: "جديد",
-            image: "images/قلم%20التدليك1.webp"
+            image: "images/قلم%20التدليك1.webp",
+            name: { ar: "مسدس المساج العضلي المحمول", fr: "Pistolet de massage musculaire portable", en: "Portable Muscle Massage Gun" },
+            description: { ar: "لتخفيف تشنجات العضلات واسترخاء الجسم بعد التعب والتمارين.", fr: "Pour soulager les crampes musculaires et relaxer le corps après l'effort et l'exercice.", en: "To relieve muscle cramps and relax the body after fatigue and exercise." },
+            badge: { ar: "جديد", fr: "Nouveau", en: "New" }
         }
     ];
+
+    function localizeProduct(p) {
+        const tr = p.name && typeof p.name === 'object' ? p : p;
+        const lang = currentLang;
+        return {
+            id: p.id,
+            sku: p.sku,
+            price: p.price,
+            oldPrice: p.oldPrice,
+            image: p.image,
+            name: (p.name && typeof p.name === 'object') ? (p.name[lang] || p.name.ar) : p.name,
+            description: (p.description && typeof p.description === 'object') ? (p.description[lang] || p.description.ar) : p.description,
+            badge: (p.badge && typeof p.badge === 'object') ? (p.badge[lang] || p.badge.ar) : p.badge
+        };
+    }
 
     let cart = [];
 
@@ -196,23 +268,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderProducts() {
         if (!productGrid) return;
-        productGrid.innerHTML = products.map(p => `
+        productGrid.innerHTML = products.map(p => {
+            const lp = localizeProduct(p);
+            const cur = translations[currentLang].currency;
+            return `
             <div class="product-card" style="border: 1px solid #e0dcd5; padding: 20px; border-radius: 16px; background: #fff; text-align: right; box-shadow: 0 4px 12px rgba(0,0,0,0.03); display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
-                    <img src="${p.image}" alt="${p.name}" style="width: 100%; height: auto; max-width: 100%; object-fit: contain; object-position: center center; display: block; overflow: visible; background: #f3f0ea; border-radius: 10px; margin-bottom: 15px; padding: 8px; box-sizing: border-box;" onerror="this.src='https://via.placeholder.com/300x200?text=Hayfo+Luxury'">
-                    <span style="background: #2c2825; color: #fff; padding: 4px 12px; font-size: 12px; border-radius: 20px; display: inline-block; margin-bottom: 12px;">${p.badge}</span>
-                    <h3 style="margin: 0 0 5px; font-size: 18px; color: #2c2825;">${p.name}</h3>
-                    <p style="color: #666; font-size: 14px; margin-bottom: 20px; line-height: 1.5;">${p.description}</p>
+                    <img src="${lp.image}" alt="${lp.name}" style="width: 100%; height: auto; max-width: 100%; object-fit: contain; object-position: center center; display: block; overflow: visible; background: #f3f0ea; border-radius: 10px; margin-bottom: 15px; padding: 8px; box-sizing: border-box;" onerror="this.src='https://via.placeholder.com/300x200?text=Hayfo+Luxury'">
+                    <span style="background: #2c2825; color: #fff; padding: 4px 12px; font-size: 12px; border-radius: 20px; display: inline-block; margin-bottom: 12px;">${lp.badge}</span>
+                    <h3 style="margin: 0 0 5px; font-size: 18px; color: #2c2825;">${lp.name}</h3>
+                    <p style="color: #666; font-size: 14px; margin-bottom: 20px; line-height: 1.5;">${lp.description}</p>
                 </div>
                 <div>
                     <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 15px;">
-                        <strong style="color: #c0392b; font-size: 20px;">${p.price} درهم</strong>
-                        <span style="text-decoration: line-through; color: #999; font-size: 14px;">${p.oldPrice} درهم</span>
+                        <strong style="color: #c0392b; font-size: 20px;">${lp.price} ${cur}</strong>
+                        <span style="text-decoration: line-through; color: #999; font-size: 14px;">${lp.oldPrice} ${cur}</span>
                     </div>
-                    <button onclick="window.addToCart(${p.id})" style="background: #2c2825; color: #fff; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold;">${translations[currentLang].addToCart}</button>
+                    <button onclick="window.addToCart(${lp.id})" style="background: #2c2825; color: #fff; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold;">${translations[currentLang].addToCart}</button>
                 </div>
             </div>
-        `).join('');
+        `}).join('');
     }
 
     window.addToCart = function(productId) {
@@ -241,27 +316,38 @@ document.addEventListener('DOMContentLoaded', () => {
             if (emptyCart) emptyCart.hidden = true;
             if (drawerFooter) drawerFooter.hidden = false;
             if (cartItemsContainer) {
-                cartItemsContainer.innerHTML = cart.map(item => `
+                const cur = translations[currentLang].currency;
+                cartItemsContainer.innerHTML = cart.map(item => {
+                    const lp = localizeProduct(item);
+                    return `
                     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 12px 0;">
                         <div>
-                            <h4 style="margin: 0; font-size: 14px; color: #2c2825;">${item.name}</h4>
+                            <h4 style="margin: 0; font-size: 14px; color: #2c2825;">${lp.name}</h4>
                             <small hidden style="color: #888; font-family: monospace;">SKU: ${item.sku}</small>
-                            <div style="color: #666; font-size: 13px;">${item.price} درهم × ${item.quantity}</div>
+                            <div style="color: #666; font-size: 13px;">${item.price} ${cur} × ${item.quantity}</div>
                         </div>
                         <button onclick="window.removeFromCart(${item.id})" style="background: none; border: none; color: #c0392b; cursor: pointer; font-size: 16px;">×</button>
                     </div>
-                `).join('');
+                `}).join('');
             }
         }
 
-        if (cartSubtotal) cartSubtotal.textContent = `${summary.subtotal} درهم`;
+        const cur = translations[currentLang].currency;
+        if (cartSubtotal) cartSubtotal.textContent = `${summary.subtotal} ${cur}`;
         const discountRow = document.getElementById('cart-discount-row');
         const discountEl = document.getElementById('cart-discount');
         const discountLabel = document.getElementById('cart-discount-label');
         if (discountRow) discountRow.hidden = summary.discount === 0;
-        if (discountEl) discountEl.textContent = `${summary.discount} درهم`;
-        if (discountLabel) discountLabel.textContent = summary.discountRate === 0.25 ? (currentLang === 'ar' ? 'خصم 25٪' : 'Remise 25%') : summary.discountRate === 0.15 ? (currentLang === 'ar' ? 'خصم 15٪' : 'Remise 15%') : (currentLang === 'ar' ? 'الخصم' : 'Remise');
-        if (cartTotal) cartTotal.textContent = `${summary.total} درهم`;
+        if (discountEl) discountEl.textContent = `${summary.discount} ${cur}`;
+        if (discountLabel) {
+            const lbl = summary.discountRate === 0.25
+                ? (currentLang === 'ar' ? 'خصم 25٪' : currentLang === 'fr' ? 'Remise 25%' : 'Discount 25%')
+                : summary.discountRate === 0.15
+                    ? (currentLang === 'ar' ? 'خصم 15٪' : currentLang === 'fr' ? 'Remise 15%' : 'Discount 15%')
+                    : (currentLang === 'ar' ? 'الخصم' : currentLang === 'fr' ? 'Remise' : 'Discount');
+            discountLabel.textContent = lbl;
+        }
+        if (cartTotal) cartTotal.textContent = `${summary.total} ${cur}`;
     }
 
     window.removeFromCart = function(productId) {
@@ -434,14 +520,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // عداد تنازلي لعرض الخصم
     const countdownEl = document.getElementById('countdown');
     if (countdownEl) {
-        const endTime = Date.now() + 24 * 60 * 60 * 1000;
-        setInterval(() => {
+        const countdownDuration = 3 * 60 * 60;
+        const countdownStorageKey = 'hayfo_countdown_3h_v4';
+        localStorage.removeItem('hayfo_countdown_end_time');
+        localStorage.removeItem('hayfo_countdown_end_time_v2');
+        localStorage.removeItem(countdownStorageKey);
+        let endTime = Date.now() + countdownDuration * 1000;
+
+        const updateCountdown = () => {
             const remaining = endTime - Date.now();
             if (remaining <= 0) { countdownEl.textContent = 'انتهى العرض'; return; }
-            const h = Math.floor(remaining / 3600000);
-            const m = Math.floor((remaining % 3600000) / 60000);
-            const s = Math.floor((remaining % 60000) / 1000);
+            const totalSeconds = Math.ceil(remaining / 1000);
+            const h = Math.floor(totalSeconds / 3600);
+            const m = Math.floor((totalSeconds % 3600) / 60);
+            const s = totalSeconds % 60;
             countdownEl.textContent = `ينتهي عرض الخصم خلال: ${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-        }, 1000);
+        };
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
     }
 });
