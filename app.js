@@ -70,7 +70,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
 
+    const cartStorageKey = 'hayfo_cart_v1';
     let cart = [];
+    try {
+        const storedCart = JSON.parse(localStorage.getItem(cartStorageKey) || '[]');
+        if (Array.isArray(storedCart)) {
+            cart = storedCart.filter(item =>
+                item &&
+                Number.isFinite(Number(item.id)) &&
+                Number.isFinite(Number(item.quantity)) &&
+                Number(item.quantity) > 0
+            ).map(item => ({ ...item, quantity: Number(item.quantity) }));
+        }
+    } catch (error) {
+        console.warn('تعذر تحميل سلة التسوق المحفوظة:', error);
+        cart = [];
+    }
 
     function getCartSummary(cartItems) {
         const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
@@ -124,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <strong style="color: #c0392b; font-size: 20px;">${p.price} درهم</strong>
                         <span style="text-decoration: line-through; color: #999; font-size: 14px;">${p.oldPrice} درهم</span>
                     </div>
-                    <button onclick="window.addToCart(${p.id})" style="background: #2c2825; color: #fff; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold;">${translations[currentLang].addToCart}</button>
+                    <button type="button" class="add-to-cart" onclick="window.addToCart(${p.id})" style="background: #2c2825; color: #fff; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold;">${translations[currentLang].addToCart}</button>
                 </div>
             </div>
         `).join('');
@@ -140,11 +155,15 @@ document.addEventListener('DOMContentLoaded', () => {
             cart.push({ ...product, quantity: 1 });
         }
         updateCartUI();
-        openCart();
     };
 
     function updateCartUI() {
         const summary = getCartSummary(cart);
+        try {
+            localStorage.setItem(cartStorageKey, JSON.stringify(cart));
+        } catch (error) {
+            console.warn('تعذر حفظ سلة التسوق:', error);
+        }
         if (cartCount) cartCount.textContent = summary.totalItems;
         if (drawerCount) drawerCount.textContent = `(${summary.totalItems})`;
 
@@ -338,36 +357,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function initCountdown() {
-        const timerElement = document.getElementById('countdown-timer');
+        const timerElement = document.getElementById('countdown');
         if (!timerElement) return;
 
-        let duration = 6 * 60 * 60;
-        const savedTime = localStorage.getItem('hayfo_timer_end');
+        const durationSeconds = 3 * 60 * 60;
+        const countdownStorageKey = 'hayfo_countdown_end_time_3h_v1';
         const now = Math.floor(Date.now() / 1000);
+        const savedTime = Number(localStorage.getItem(countdownStorageKey));
+        let endTime;
 
-        if (savedTime && savedTime > now) {
-            duration = savedTime - now;
+        localStorage.removeItem('hayfo_timer_end');
+
+        if (Number.isFinite(savedTime) && savedTime > now) {
+            endTime = savedTime;
         } else {
-            localStorage.setItem('hayfo_timer_end', now + duration);
+            endTime = now + durationSeconds;
+            localStorage.setItem(countdownStorageKey, String(endTime));
         }
 
-        setInterval(() => {
-            if (duration <= 0) {
-                duration = 6 * 60 * 60;
-                localStorage.setItem('hayfo_timer_end', Math.floor(Date.now() / 1000) + duration);
+        const updateCountdown = () => {
+            const remaining = endTime - Math.floor(Date.now() / 1000);
+            if (remaining <= 0) {
+                timerElement.textContent = 'انتهى العرض';
+                return;
             }
 
-            const hours = Math.floor(duration / 3600);
-            const minutes = Math.floor((duration % 3600) / 60);
-            const seconds = duration % 60;
+            const hours = Math.floor(remaining / 3600);
+            const minutes = Math.floor((remaining % 3600) / 60);
+            const seconds = remaining % 60;
 
             timerElement.textContent = 
                 String(hours).padStart(2, '0') + ':' + 
                 String(minutes).padStart(2, '0') + ':' + 
                 String(seconds).padStart(2, '0');
+        };
 
-            duration--;
-        }, 1000);
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
     }
 
     renderProducts();
