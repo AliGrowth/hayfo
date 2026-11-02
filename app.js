@@ -1,4 +1,4 @@
-// ===== العد التنازلي =====
+// ===== العد التنازلي المستمر =====
 const COUNTDOWN_DURATION_MS = 3 * 60 * 60 * 1000;
 const COUNTDOWN_STORAGE_KEY = 'hayfo_countdown_end_time_3h_v1';
 let countdownIntervalId = null;
