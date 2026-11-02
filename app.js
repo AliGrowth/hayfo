@@ -1,32 +1,71 @@
 ﻿// ===== العد التنازلي =====
-const DURATION = 3 * 60 * 60 * 1000; // 3 ساعات
+const COUNTDOWN_DURATION_MS = 3 * 60 * 60 * 1000;
 const COUNTDOWN_STORAGE_KEY = 'hayfo_countdown_end_time_3h_v1';
+let countdownIntervalId = null;
 
-function getEndTime() {
-    const now = Date.now();
-    let end = Number(localStorage.getItem(COUNTDOWN_STORAGE_KEY));
-    if (!Number.isFinite(end) || end <= now || end > now + DURATION) {
-        end = now + DURATION;
-        localStorage.setItem(COUNTDOWN_STORAGE_KEY, String(end));
+function readCountdownEnd() {
+    try {
+        const rawEnd = localStorage.getItem(COUNTDOWN_STORAGE_KEY);
+        const end = Number(rawEnd);
+        return Number.isFinite(end) && end > 0 ? end : null;
+    } catch (error) {
+        console.warn('Could not read the countdown end time.', error);
+        return null;
     }
-    return end;
+}
+
+function saveCountdownEnd(end) {
+    try {
+        localStorage.setItem(COUNTDOWN_STORAGE_KEY, String(end));
+    } catch (error) {
+        console.warn('Could not save the countdown end time.', error);
+    }
+}
+
+function getCountdownEnd() {
+    const now = Date.now();
+    const storedEnd = readCountdownEnd();
+    const validEnd =
+        storedEnd !== null &&
+        storedEnd > now &&
+        storedEnd <= now + COUNTDOWN_DURATION_MS;
+
+    if (validEnd) return storedEnd;
+
+    const newEnd = now + COUNTDOWN_DURATION_MS;
+    saveCountdownEnd(newEnd);
+    return newEnd;
 }
 
 function startCountdown(el) {
     if (!el) return;
-    const tick = () => {
-        const end = getEndTime();
-        const left = Math.max(0, end - Date.now());
-        const h = String(Math.floor(left / 3600000)).padStart(2, '0');
-        const m = String(Math.floor((left % 3600000) / 60000)).padStart(2, '0');
-        const s = String(Math.floor((left % 60000) / 1000)).padStart(2, '0');
-        el.textContent = `${h}:${m}:${s}`;
-        if (left === 0) {
-            localStorage.removeItem(COUNTDOWN_STORAGE_KEY);
+
+    if (countdownIntervalId !== null) {
+        window.clearInterval(countdownIntervalId);
+    }
+
+    const updateCountdown = () => {
+        let end = getCountdownEnd();
+        let remaining = Math.max(0, end - Date.now());
+
+        if (remaining <= 0) {
+            end = Date.now() + COUNTDOWN_DURATION_MS;
+            saveCountdownEnd(end);
+            remaining = COUNTDOWN_DURATION_MS;
         }
+
+        const totalSeconds = Math.ceil(remaining / 1000);
+        const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+        const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+        const seconds = String(totalSeconds % 60).padStart(2, '0');
+        el.textContent = `${hours}:${minutes}:${seconds}`;
     };
-    tick();
-    setInterval(tick, 1000);
+
+    updateCountdown();
+    countdownIntervalId = window.setInterval(updateCountdown, 1000);
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) updateCountdown();
+    });
 }
 
 function initAnnouncementCountdown() {
