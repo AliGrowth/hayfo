@@ -66,6 +66,8 @@ function startCountdown(el) {
     document.addEventListener('visibilitychange', () => {
         if (!document.hidden) updateCountdown();
     });
+    window.addEventListener('focus', updateCountdown);
+    window.addEventListener('pageshow', updateCountdown);
 }
 
 function initAnnouncementCountdown() {

@@ -451,4 +451,21 @@ h1 em, h2 em { font-family: var(--serif); font-weight: 400; color: #b77b60; }
   to { transform: translateX(-50%); }
 }
 
-[hidden], .sku, .product-sku { display: none !important; }
+[hidden], .sku, .product-sku, [class*="sku" i] { display: none !important; }
+
+/* Store-wide product image rules: never crop product edges. */
+.product-card .product-photo,
+.product-card .image-container,
+.product-card .product-img,
+.product-card img,
+.product-photo img,
+.image-container img,
+.product-img {
+  width: 100% !important;
+  height: 250px !important;
+  max-width: 100% !important;
+  max-height: 250px !important;
+  background-color: #ffffff !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+}
