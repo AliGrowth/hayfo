@@ -130,7 +130,7 @@ function renderProducts() {
     <article class="product-card">
       <div class="product-photo">
         ${product.image
-          ? `<img src="${product.image}?v=457cf47" alt="${product.imageAlt}" loading="lazy" decoding="async" />`
+          ? `<img class="product-img" src="${product.image}?v=457cf47" alt="${product.imageAlt}" loading="lazy" decoding="async" />`
           : `<div class="product-art" aria-label="${product.name}"><span>${product.artLabel}</span><small>${product.artDetail}</small></div>`}
         <span class="product-label${product.id === "ems-mini-face-massager" ? " product-label-bottom" : ""}">${product.label}</span>
       </div>
