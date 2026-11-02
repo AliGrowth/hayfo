@@ -15,16 +15,16 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=product-fit-20261101-1" />
-    <script src="app.js?v=countdown-20261101-5" defer></script>
+    <link rel="stylesheet" href="styles.css?v=product-fit-20261101-2" />
+    <script src="app.js?v=cta-20261101-1" defer></script>
   </head>
   <body>
     <div class="announcement">
-      <span>توصيل مجاني لجميع الطلبات</span>
-      <span class="announcement-dot" aria-hidden="true"></span>
-      <span>الدفع عند الاستلام لجميع أنحاء المغرب</span>
+      <span>⚡ مخزون محدود — خصم حتى 25٪ ينتهي خلال</span>
       <span class="announcement-dot" aria-hidden="true"></span>
       <span id="countdown">03:00:00</span>
+      <span class="announcement-dot" aria-hidden="true"></span>
+      <span>📦 توصيل سريع والدفع عند الاستلام</span>
     </div>
 
     <header class="site-header">
@@ -88,7 +88,7 @@
       </section>
 
       <section class="products-section section-pad" id="products">
-        <p class="bundle-offer">عرض خاص: خصم 15٪ عند شراء جهازين، و25٪ عند شراء 3 أجهزة أو أكثر.</p>
+        <p class="bundle-offer">عرض خاص: خصم 15٪ عند شراء جهازين، و25٪ عند شراء 3 أجهزة أو أكثر — كميات محدودة!</p>
         <div class="product-grid" id="product-grid"></div>
       </section>
 
@@ -135,7 +135,11 @@
         <div class="subtotal"><span>المجموع قبل الخصم</span><strong id="cart-subtotal">0</strong></div>
         <div class="subtotal discount-row" id="cart-discount-row" hidden><span id="cart-discount-label">الخصم</span><strong id="cart-discount">0</strong></div>
         <div class="subtotal total-row"><span>الإجمالي بعد الخصم</span><strong id="cart-total">0</strong></div>
-        <button class="button button-dark checkout-button" id="checkout-button" type="button">إتمام الطلب <span aria-hidden="true">←</span></button>
+        <button class="button button-dark checkout-button" id="checkout-button" type="button">اطلب الآن وادفع عند الاستلام <span aria-hidden="true">←</span></button>
+        <div class="trust-badges" id="trust-badges">
+          <span class="trust-badge" id="trust-delivery">📦 توصيل سريع لجميع المدن المغربية والدفع عند الاستلام</span>
+          <span class="trust-badge" id="trust-guarantee">🔒 ضمان الجودة: استبدال أو استرجاع متاح</span>
+        </div>
         <small>الدفع عند الاستلام · هذا نموذج عرض تجريبي</small>
       </div>
     </aside>
@@ -150,7 +154,7 @@
         <label>رقم الهاتف<input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" minlength="10" maxlength="10" pattern="0[0-9]{9}" required placeholder="06 00 00 00 00" title="يجب أن يحتوي رقم الهاتف على 10 أرقام وأن يبدأ بالرقم 0" /></label>
         <label>المدينة<input id="city" name="city" autocomplete="address-level2" required minlength="2" placeholder="المدينة" title="يرجى إدخال اسم المدينة" /></label>
         <label>العنوان (اختياري)<input name="address" autocomplete="street-address" placeholder="الحي، الشارع، رقم المنزل" /></label>
-        <button class="button button-dark checkout-submit" type="submit">تأكيد الطلب التجريبي <span aria-hidden="true">←</span></button>
+        <button class="button button-dark checkout-submit" type="submit">تأكيد طلبي الآن (الدفع عند الاستلام) <span aria-hidden="true">←</span></button>
       </form>
       <div class="order-success" id="order-success" hidden><span>✓</span><h3>شكراً لاهتمامكم!</h3><p>تم عرض تجربة الطلب بنجاح. هذا الموقع تجريبي ولا يوجد طلب حقيقي.</p><button class="button button-dark" id="finish-order" type="button">العودة للمتجر</button></div>
     </div>

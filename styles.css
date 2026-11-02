@@ -132,7 +132,8 @@ h1 em, h2 em { font-family: var(--serif); font-weight: 400; color: #b77b60; }
   .bundle-offer { animation: none; }
 }
 .product-card { min-width: 0; display: flex; flex-direction: column; }
-.product-photo {
+.product-photo,
+.image-container {
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 5;
@@ -143,7 +144,9 @@ h1 em, h2 em { font-family: var(--serif); font-weight: 400; color: #b77b60; }
   display: grid;
   place-items: center;
 }
-.product-photo img {
+.product-photo img,
+.image-container img,
+.product-img {
   width: 100%;
   height: 100%;
   max-width: 100%;
@@ -152,7 +155,6 @@ h1 em, h2 em { font-family: var(--serif); font-weight: 400; color: #b77b60; }
   display: block;
   object-fit: contain;
   object-position: center center;
-  overflow: visible;
   padding: 14px;
   transition: none;
 }
@@ -215,7 +217,7 @@ h1 em, h2 em { font-family: var(--serif); font-weight: 400; color: #b77b60; }
 .close-drawer, .checkout-close { font-size: 28px; line-height: 1; }
 .cart-items { flex: 1; overflow: auto; }
 .cart-item { display: grid; grid-template-columns: 74px 1fr auto; gap: 13px; padding: 17px 0; border-bottom: 1px solid var(--line); }
-.cart-item img { width: 74px; height: 85px; object-fit: cover; background: #ece7e0; }
+.cart-item img { width: 74px; height: 85px; object-fit: contain; object-position: center; background: #ece7e0; }
 .cart-item-art { width: 74px; height: 85px; display: grid; place-items: center; background: #e5ddd1; color: #665c50; font: 10px "DM Sans", sans-serif; text-align: center; overflow-wrap: anywhere; }
 .cart-item h3 { font-size: 12px; margin: 4px 0; }
 .cart-item p { color: var(--muted); font-size: 10px; margin: 0; }
@@ -251,6 +253,8 @@ h1 em, h2 em { font-family: var(--serif); font-weight: 400; color: #b77b60; }
 .checkout-form input { border: 1px solid #e1ddd5; background: #fff; padding: 11px; outline: 0; font-size: 11px; }
 .checkout-form input:focus { border-color: #b78369; }
 .checkout-submit { margin-top: 7px; width: 100%; }
+.trust-badges { display: grid; gap: 8px; margin-top: 12px; }
+.trust-badge { display: flex; align-items: center; gap: 8px; padding: 9px 12px; border: 1px solid #e7e2da; border-radius: 12px; background: #f3f0ea; color: #4e4c46; font-size: 11px; line-height: 1.5; }
 .order-success { padding: 18px 0 5px; text-align: center; }
 .success-check { display: inline-grid; place-items: center; width: 84px; height: 84px; border-radius: 50%; color: #27867a; background: #edf3ec; border: 8px solid #f7faf7; font-size: 48px; font-weight: 400; line-height: 1; }
 .order-success h3 { font-size: 28px; margin: 16px 0 18px; color: #245c54; }
@@ -306,8 +310,11 @@ h1 em, h2 em { font-family: var(--serif); font-weight: 400; color: #b77b60; }
   .section-pad { padding: 40px 5%; }
   .story-copy h2 { font-size: 37px; }
   .product-grid { grid-template-columns: 1fr; gap: 12px; }
-  .product-photo { aspect-ratio: 4 / 5; min-height: 0; height: auto; }
-  .product-photo img { padding: 10px; }
+  .product-photo,
+  .image-container { aspect-ratio: 4 / 5; min-height: 0; height: auto; }
+  .product-photo img,
+  .image-container img,
+  .product-img { padding: 10px; }
   .product-title { font-size: 14px; }
   .story-section { padding: 62px 8%; grid-template-columns: 1fr; gap: 39px; }
   .story-image-wrap { margin-inline-end: 15px; }
@@ -383,7 +390,8 @@ h1 em, h2 em { font-family: var(--serif); font-weight: 400; color: #b77b60; }
   .section-pad { padding: 48px 5%; }
   .bundle-offer { font-size: 15px; line-height: 1.8; margin-bottom: 20px; }
   .product-grid { gap: 28px; }
-  .product-photo { aspect-ratio: 4 / 5; min-height: 0; height: auto; }
+  .product-photo,
+  .image-container { aspect-ratio: 4 / 5; min-height: 0; height: auto; }
   .product-title { font-size: 17px; line-height: 1.55; }
   .product-info { align-items: flex-start; gap: 12px; }
   .product-info p { font-size: 12px; line-height: 1.8; }
@@ -410,6 +418,7 @@ h1 em, h2 em { font-family: var(--serif); font-weight: 400; color: #b77b60; }
   .checkout-modal { width: calc(100% - 20px); max-height: calc(100vh - 20px); padding: 28px 16px; }
   .checkout-form input { min-height: 48px; }
   .checkout-submit { min-height: 52px; }
+  .trust-badge { font-size: 12px; }
   .toast { width: calc(100% - 32px); text-align: center; line-height: 1.7; }
   .button, .header-cta { font-size: 13px; }
   .benefit-strip b { font-size: 11px; }

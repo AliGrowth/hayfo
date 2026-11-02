@@ -301,7 +301,7 @@ const formMessages = {
     phoneLabel: "رقم الهاتف",
     cityLabel: "المدينة",
     addressLabel: "العنوان (اختياري)",
-    submit: "تأكيد الطلب التجريبي",
+    submit: "تأكيد طلبي الآن (الدفع عند الاستلام)",
     nameRequired: "يرجى إدخال الاسم الكامل هنا",
     nameShort: "يجب إدخال ثلاثة أحرف على الأقل للاسم",
     phoneInvalid: "يجب أن يحتوي رقم الهاتف على 10 أرقام وأن يبدأ بالرقم 0",
@@ -317,7 +317,7 @@ const formMessages = {
     phoneLabel: "Numéro de téléphone",
     cityLabel: "Ville",
     addressLabel: "Adresse (facultatif)",
-    submit: "Confirmer la commande de démonstration",
+    submit: "Confirmer ma commande maintenant (paiement à la livraison)",
     nameRequired: "Veuillez saisir votre nom complet",
     nameShort: "Le nom doit contenir au moins trois caractères",
     phoneInvalid: "Le numéro doit contenir 10 chiffres et commencer par 0",
@@ -333,7 +333,7 @@ const formMessages = {
     phoneLabel: "Phone number",
     cityLabel: "City",
     addressLabel: "Address (optional)",
-    submit: "Confirm demo order",
+    submit: "Confirm my order now (cash on delivery)",
     nameRequired: "Please enter your full name",
     nameShort: "The name must contain at least three characters",
     phoneInvalid: "The phone number must contain 10 digits and start with 0",
@@ -403,8 +403,8 @@ if (detectedLanguage === "fr") {
     if (element) element.textContent = text;
   };
   const translations = {
-    ".announcement span:first-child": "Livraison gratuite sur toutes les commandes",
-    ".announcement span:last-child": "Paiement à la livraison partout au Maroc",
+    ".announcement span:first-child": "⚡ Stock limité — Jusqu’à -25 %, offre se termine dans",
+    ".announcement span:last-child": "📦 Livraison rapide et paiement à la livraison",
     ".main-nav a:nth-child(1)": "Accueil",
     ".main-nav a:nth-child(2)": "Boutique",
     ".main-nav a:nth-child(3)": "À propos",
@@ -416,7 +416,7 @@ if (detectedLanguage === "fr") {
     ".hero-actions .text-link": "À propos de nos produits ↗",
     "#checkout-title": "Où envoyer votre commande ?",
     "#checkout-modal > p": "Renseignez vos informations pour finaliser la commande. Il s’agit d’une démonstration : aucune donnée n’est envoyée et aucun paiement n’est effectué.",
-    ".bundle-offer": "Offre spéciale : -15 % pour deux appareils, et -25 % pour trois appareils ou plus.",
+    ".bundle-offer": "Offre spéciale : -15 % pour deux appareils, et -25 % pour trois appareils ou plus — Stock limité !",
     ".story-copy .eyebrow": "Des soins à la maison",
     ".story-copy > h2": "Des moments de massage pensés pour vous.",
     ".story-copy > p:not(.disclaimer)": "Découvrez une sélection d’appareils de massage pour le visage et le cou. Consultez les instructions de chaque appareil avant utilisation.",
@@ -465,7 +465,9 @@ if (detectedLanguage === "fr") {
     "#close-checkout": "Fermer",
     "#order-success h3": "Merci pour votre intérêt !",
     "#order-success p": "Votre commande de démonstration a été confirmée. Aucun paiement ni aucune commande réelle n’ont été effectués.",
-    "#finish-order": "Retour à la boutique"
+    "#finish-order": "Retour à la boutique",
+    "#trust-delivery": "📦 Livraison rapide dans toutes les villes marocaines - Paiement à la livraison",
+    "#trust-guarantee": "🔒 Garantie qualité : échange ou remboursement disponible"
   };
   Object.entries(translations).forEach(([selector, text]) => {
     if (selector === "#newsletter-email") document.querySelector(selector)?.setAttribute("placeholder", text);
@@ -473,7 +475,7 @@ if (detectedLanguage === "fr") {
   });
   document.querySelector(".main-nav")?.setAttribute("aria-label", "Navigation principale");
   document.querySelector("#open-cart")?.setAttribute("aria-label", "Ouvrir le panier");
-  document.querySelector("#checkout-button")?.replaceChildren(document.createTextNode("Finaliser la commande "), Object.assign(document.createElement("span"), { textContent: "←", ariaHidden: "true" }));
+  document.querySelector("#checkout-button")?.replaceChildren(document.createTextNode("Commander maintenant - Paiement à la livraison "), Object.assign(document.createElement("span"), { textContent: "←", ariaHidden: "true" }));
   document.querySelector(".empty-cart b")?.replaceChildren(document.createTextNode("Votre panier attend vos choix"));
   document.querySelector("#close-cart")?.setAttribute("aria-label", "Fermer le panier");
   document.querySelectorAll(".proof-avatars span").forEach((span, index) => {
