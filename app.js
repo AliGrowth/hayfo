@@ -628,12 +628,19 @@ checkoutForm.addEventListener("submit", (event) => {
       : "الدفع عند الاستلام"
   };
 
-  sendOrderToSheet(orderData).then(result => {
+  sendOrderToSheet(orderData).then((result) => {
     console.log("Order sent:", result);
-  });
 
-  checkoutForm.hidden = true;
-  document.querySelector("#order-success").hidden = false;
+    if (!result.success) {
+      showToast(detectedLanguage === "fr"
+        ? "La commande n’a pas pu être envoyée. Veuillez réessayer."
+        : "تعذر إرسال الطلب. يرجى المحاولة مرة أخرى.");
+      return;
+    }
+
+    checkoutForm.hidden = true;
+    document.querySelector("#order-success").hidden = false;
+  });
 });
 
 document.querySelector("#finish-order").addEventListener("click", () => {
@@ -673,10 +680,23 @@ function sendOrderToSheet(orderData) {
   }
   return fetch(SHEETDB_API_URL, {
     method: "POST",
-    mode: "no-cors",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(orderData)
-  }).then(() => ({ success: true })).catch(() => ({ success: false }));
+    body: JSON.stringify({ data: [orderData] })
+  })
+    .then(async (response) => {
+      const payload = await response.json().catch(() => null);
+      if (!response.ok || payload?.result !== undefined && payload.result !== "success") {
+        return {
+          success: false,
+          message: payload?.message || `SheetDB returned HTTP ${response.status}`
+        };
+      }
+      return { success: true, payload };
+    })
+    .catch((error) => ({
+      success: false,
+      message: error instanceof Error ? error.message : "SheetDB request failed"
+    }));
 }
 
 document.querySelector("#finish-order").addEventListener("click", () => {
