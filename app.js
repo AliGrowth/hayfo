@@ -86,7 +86,7 @@ const products = [
   {
     id: "bbk-infrared-massager",
     name: "جهاز BBK للمساج 5 في 1",
-    description: "جهاز مساج يدوي بتصميم فضي ورؤوس متعددة للاستخدام على مناطق مختلفة من الجسم. صُمم بخمس وظائف، مع خاصية الأشعة تحت الحمراء.",
+    description: "استعيدي نضارة بشرتك وشوقيها حيوية مع جهاز BBK متعدد الوظائف! يجمع بين 5 تقنيات متقدمة: المساج بالاهتزاز، العلاج بالأشعة تحت الحمراء، والذبذبات الكهربائية. مثالي لتدليك الوجه والرقبة والجسم، يساعد على تحسين الدورة الدموية، تخفيف التوتر، وتقليل التجاعيد. تصميم أنيق وزخرفي يجعله هدية مثالية.",
     quantity: 1,
     price: 228,
     oldPrice: null,
@@ -98,11 +98,11 @@ const products = [
   {
     id: "shiatsu-neck-massager",
     name: "جهاز مساج الرقبة Shiatsu",
-    description: "جهاز كهربائي مخصص لتدليك منطقة الرقبة والكتفين وجميع اعضاء الجسم بتقنية شياتسو التي تحاكي حركات العجن.",
+    description: "دخلي عالم الاسترخاء مع جهاز مساج الرقبة Shiatsu! يعتمد على تقنية الشياتسو اليابانية التي تحاكي حركات أيادي المختصين في التدليك. مثالي لتخفيف آلام الرقبة والكتفين والظهر، يعزز الدورة الدموية، ويطلق التوتر المتراكم. سهل الاستخدام بزر واحد، مع تصميم مريح يناسب جميع الأحجام. الحل الأمثل لراحة يومية بعد يوم عمل طويل.",
     quantity: 1,
     price: 299,
     oldPrice: null,
-    label: "مساج الرقبة",
+    label: "الأكثر مبيعاً",
     image: "images/3.webp",
     imageAlt: "صورة توضيحية لجهاز كهربائي لتدليك الرقبة والكتفين",
     supplierUrl: "https://www.alibaba.com/product-detail/Hot-Sale-Electric-Shiatsu-Neck-and_1601014957551.html?source_from=alilens_1793116197941",
@@ -110,11 +110,11 @@ const products = [
   {
     id: "ems-mini-face-massager",
     name: "جهاز مساج الوجه والعنق EMS ميني",
-    description: "جهاز مساج كهربائي لشد الوجه و العنق بحجم ميني، يأتي بسبعة ألوان أو أنماط ضوئية حسب وصف المنتج. أضيفوه إلى روتين العناية بالوجه واستخدموه وفق تعليمات الشركة المصنّعة.",
+    description: "اكتشفي سرجمال البشرة المشدودة مع جهاز EMS ميني! يجمع بين التقنية الكهربائية والاضاءة الملونة السبعة لعلاج التجاعيد وشد الوجه والرقبة. يعمل على تنشيط الخلايا وإنتاج الكولاجين، مما يمنحك بشرة مشدودة ونضرة. حجمه المصغر يجعله مثالياً للحمل في الحقيبة، واستخدامه اليومي يستغرق دقائق معدودة. بديل مثالي لزياراتصالون التجميل.",
     quantity: 1,
     price: 229,
     oldPrice: null,
-    label: "7 ألوان",
+    label: "جديد",
     image: "images/face-massage-user.webp",
     imageAlt: "صورة توضيحية لجهاز كهربائي لمساج الوجه",
     supplierUrl: "https://www.alibaba.com/product-detail/7-Color-Mini-Electric-EMS-Wrinkle_1601844583772.html?source_from=alilens_1793116333493",
@@ -420,20 +420,20 @@ if (detectedLanguage === "fr") {
   const frenchProducts = {
     "bbk-infrared-massager": {
       name: "Appareil BBK de massage 5 en 1",
-      description: "Appareil de massage manuel argenté avec plusieurs têtes pour différentes zones du corps. Conçu avec cinq fonctions et une option infrarouge selon la description du produit. Veuillez consulter le mode d’emploi.",
+      description: "Redonnez à votre peau éclat et vitalité avec l'appareil BBK 5-en-1 ! Combine 5 technologies avancées : massage par vibrations, thérapie infrarouge et impulsions électriques. Idéal pour le visage, le cou et le corps, il améliore la circulation sanguine, soulage le stress et réduit les rides. Design élégant qui en fait un cadeau parfait.",
       label: "5 en 1",
       imageAlt: "Appareil de massage argenté multifonction"
     },
     "shiatsu-neck-massager": {
       name: "Appareil de massage Shiatsu pour le cou",
-      description: "Appareil électrique conçu pour le cou et les épaules avec une technique Shiatsu imitant les mouvements de pétrissage. Suivez les instructions du fabricant.",
-      label: "Massage du cou",
+      description: "Découvrez le monde de la détente avec le masseur cervical Shiatsu ! Il utilise la technique japonaise Shiatsu qui imite les mouvements des mains d'un spécialiste. Idéal pour soulager les douleurs du cou, des épaules et du dos, il améliore la circulation sanguine et libère le stress accumulé. Facile à utiliser d'une simple pression, avec un design confortable. La solution parfaite pour le relaxation quotidienne.",
+      label: "Best-seller",
       imageAlt: "Appareil électrique de massage du cou et des épaules"
     },
     "ems-mini-face-massager": {
       name: "Mini appareil EMS de massage facial",
-      description: "Mini appareil électrique de massage du visage proposant plusieurs modes lumineux selon la description du produit. Utilisez-le conformément aux instructions du fabricant.",
-      label: "7 couleurs",
+      description: "Découvrez le secret d'une peau ferme avec le mini appareil EMS ! Il combine la technologie électrique et les sept lumières colorées pour traiter les rides et raffermissir le visage et le cou. Il active les cellules et stimule la production de collagène pour une peau ferme et éclatante. Sa taille compacte le rend parfait pour Emporter partout. Une alternative idéale aux séances de salon de beauté.",
+      label: "Nouveau",
       imageAlt: "Mini appareil électrique de massage du visage"
     }
   };
@@ -451,17 +451,17 @@ if (detectedLanguage === "fr") {
     ".main-nav a:nth-child(2)": "Boutique",
     ".main-nav a:nth-child(3)": "À propos",
     ".header-cta": "Acheter maintenant ←",
-    ".hero .eyebrow": "Des soins à votre façon",
+    ".hero .eyebrow": "",
     ".hero-copy h1": "Des moments de soin qui font la différence.",
     ".hero-copy p": "Découvrez nos appareils de massage pour le visage, le cou et le corps, puis choisissez celui qui convient à votre routine.",
     ".hero-actions .button-dark": "Découvrir les appareils ←",
     ".hero-actions .text-link": "À propos de nos produits ↗",
-    "#checkout-title": "Où envoyer votre commande ?",
-    "#checkout-modal > p": "Renseignez vos informations pour finaliser la commande. Il s’agit d’une démonstration : aucune donnée n’est envoyée et aucun paiement n’est effectué.",
+    "#checkout-title": "",
+    "#checkout-modal > p": "",
     ".bundle-offer": "Offre spéciale : -15 % pour deux appareils, et -25 % pour trois appareils ou plus — Stock limité !",
     ".story-copy .eyebrow": "Des soins à la maison",
     ".story-copy > h2": "Des moments de massage pensés pour vous.",
-    ".story-copy > p:not(.disclaimer)": "Découvrez une sélection d’appareils de massage pour le visage et le cou. Consultez les instructions de chaque appareil avant utilisation.",
+    ".story-copy > p:not(.disclaimer)": "Découvrez une sélection d’appareils de massage pour le visage et le cou.",
     ".newsletter h2": "Votre moment de soin. Nous sommes là.",
     ".newsletter p": "Inscrivez-vous pour recevoir nos conseils de soins et nos nouvelles offres.",
     "#newsletter-email": "Votre adresse e-mail",
@@ -488,7 +488,12 @@ if (detectedLanguage === "fr") {
     ".story-copy .story-points li:nth-child(3) small": "Des appareils pratiques pour votre routine quotidienne.",
     ".story-copy .button-dark": "Découvrir les appareils ←",
     ".story-copy .disclaimer": "Votre confort et votre santé sont notre priorité. Ces appareils sont conçus pour compléter les soins quotidiens et le massage à domicile.",
-    ".newsletter .eyebrow": "Le mot de Hayfo",
+    ".testimonials .eyebrow": "Avis de nos clients",
+    ".testimonials .section-heading": "Que disent <em>nos clients</em> ?",
+    ".testimonial-card:nth-child(1) .testimonial-text": "\"Appareil de massage pour le cou incroyable ! Toute ma famille l'utilise et se sent relaxée après une longue journée. Livraison rapide et emballage excellent.\" — Sara M., Casablanca",
+    ".testimonial-card:nth-child(2) .testimonial-text": "\"L'appareil BBK multifonction est très pratique. Je l'ai offert en cadeau et ma famille l'adore. Bonne qualité pour le prix.\" — Ahmed B., Marrakech",
+    ".testimonial-card:nth-child(3) .testimonial-text": "\"L'appareil EMS facial est très efficace pour raffermir la peau. Je l'utilise quotidiennement et je vois une différence notable. Je le recommande vivement !\" — Fatima Z., Fès",
+    ".newsletter .eyebrow": "Le mot de VAURA",
     ".newsletter-form button": "S’inscrire ←",
     ".site-footer > p": "Des moments de soin, à votre rythme.",
     ".footer-links a:nth-child(1)": "Boutique",
@@ -505,8 +510,8 @@ if (detectedLanguage === "fr") {
     ".drawer-footer small": "Paiement à la livraison · Cette page est une démonstration",
     "#checkout-modal .eyebrow": "Dernière étape",
     "#close-checkout": "Fermer",
-    "#order-success h3": "Merci pour votre intérêt !",
-    "#order-success p": "Votre commande de démonstration a été confirmée. Aucun paiement ni aucune commande réelle n’ont été effectués.",
+    "#order-success h3": "Commande confirmée avec succès ! ✨✓✨",
+    "#order-success p": "Merci de votre confiance en VAURA. Votre commande a été reçue et notre équipe vous contactera pour confirmer les détails de la livraison.",
     "#finish-order": "Retour à la boutique",
     "#trust-delivery": "📦 Livraison rapide dans toutes les villes marocaines - Paiement à la livraison",
     "#trust-guarantee": "🔒 Garantie qualité : échange ou remboursement disponible"
@@ -585,6 +590,48 @@ checkoutForm.addEventListener("submit", (event) => {
     cityInput.reportValidity();
     return;
   }
+
+  // Build order data matching Sheet columns
+  const name = fullNameInput.value.trim();
+  const phone = phoneInput.value.trim();
+  const city = cityInput.value.trim();
+  const address = document.querySelector("[name='address']").value.trim();
+  const notes = messages.lang === "fr"
+    ? cart.map(i => {
+        const p = products.find(pr => pr.id === i.id);
+        return `${p?.name || ""} x${i.quantity}`;
+      }).join(", ")
+    : cart.map(i => {
+        const p = products.find(pr => pr.id === i.id);
+        return `${p?.name || ""} × ${i.quantity}`;
+      }).join("، ");
+
+  const subtotal = cart.reduce((t, i) => {
+    const p = products.find(pr => pr.id === i.id);
+    return t + (p?.price ? p.price * i.quantity : 0);
+  }, 0);
+  const count = cart.reduce((t, i) => t + i.quantity, 0);
+  const discountRate = count >= 3 ? 0.25 : count === 2 ? 0.15 : 0;
+  const total = subtotal * (1 - discountRate);
+
+  const orderData = {
+    date_order: new Date().toISOString().slice(0, 16).replace("T", " "),
+    full_name: name,
+    phone: phone,
+    address: address,
+    sku: cart.map(i => i.id).join(", "),
+    qte: String(count),
+    price: String(Math.round(total)),
+    note: notes + (city ? " - " + city : ""),
+    delivery_note: messages.lang === "fr"
+      ? "Paiement à la livraison"
+      : "الدفع عند الاستلام"
+  };
+
+  sendOrderToSheet(orderData).then(result => {
+    console.log("Order sent:", result);
+  });
+
   checkoutForm.hidden = true;
   document.querySelector("#order-success").hidden = false;
 });
@@ -605,6 +652,49 @@ document.querySelector("#newsletter-form").addEventListener("submit", (event) =>
   event.currentTarget.reset();
   showToast(detectedLanguage === "fr"
     ? "Merci pour votre intérêt ! L’inscription est désactivée dans cette démonstration."
+    : "شكراً لاهتمامكم! الاشتراك غير مفعّل في النسخة التجريبية.");
+});
+
+document.addEventListener("contextmenu", (event) => {
+  if (event.target.closest("img")) event.preventDefault();
+});
+
+document.addEventListener("dragstart", (event) => {
+  if (event.target.closest("img")) event.preventDefault();
+});
+
+// ===== ربط Google Sheets باستلام الطلبات =====
+const SHEETDB_API_URL = "https://sheetdb.io/api/v1/8hta5lbm5rf06"; // ← ضع رابط API الخاص بك من SheetDB
+
+function sendOrderToSheet(orderData) {
+  if (SHEETDB_API_URL === "https://sheetdb.io/api/v1/your-api-id") {
+    console.warn("SheetDB API not configured.");
+    return Promise.resolve({ success: false, message: "Webhook غير مُعدّ" });
+  }
+  return fetch(SHEETDB_API_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(orderData)
+  }).then(() => ({ success: true })).catch(() => ({ success: false }));
+}
+
+document.querySelector("#finish-order").addEventListener("click", () => {
+  cart = [];
+  saveCart();
+  renderCart();
+  document.querySelector("#checkout-form").reset();
+  document.querySelector("#checkout-form").hidden = false;
+  document.querySelector("#order-success").hidden = true;
+  closeCheckout();
+  showToast(detectedLanguage === "fr" ? "Fin de la commande de démonstration" : "انتهت تجربة الطلب التجريبي");
+});
+
+document.querySelector("#newsletter-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  event.currentTarget.reset();
+  showToast(detectedLanguage === "fr"
+    ? "Merci pour votre intérêt ! L'inscription est désactivée dans cette démonstration."
     : "شكراً لاهتمامكم! الاشتراك غير مفعّل في النسخة التجريبية.");
 });
 
