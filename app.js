@@ -671,31 +671,28 @@ document.addEventListener("dragstart", (event) => {
 });
 
 // ===== ربط Google Sheets باستلام الطلبات =====
-const SHEETDB_API_URL = "https://sheetdb.io/api/v1/8hta5lbm5rf06"; // ← ضع رابط API الخاص بك من SheetDB
+const GOOGLE_SHEET_WEBHOOK_URL =
+  "https://script.google.com/macros/s/AKfycbxJ5Ljzvu5YhMbJfBA4QNptoFncaWqSPnDhxn40XGkMmyaMqttbagXSq-Lbagc5gMt1/exec";
 
 function sendOrderToSheet(orderData) {
-  if (SHEETDB_API_URL === "https://sheetdb.io/api/v1/your-api-id") {
-    console.warn("SheetDB API not configured.");
-    return Promise.resolve({ success: false, message: "Webhook غير مُعدّ" });
-  }
-  return fetch(SHEETDB_API_URL, {
+  return fetch(GOOGLE_SHEET_WEBHOOK_URL, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ data: [orderData] })
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(orderData)
   })
     .then(async (response) => {
       const payload = await response.json().catch(() => null);
-      if (!response.ok || payload?.result !== undefined && payload.result !== "success") {
+      if (!response.ok || payload?.result !== "success") {
         return {
           success: false,
-          message: payload?.message || `SheetDB returned HTTP ${response.status}`
+          message: payload?.message || `Google Sheets returned HTTP ${response.status}`
         };
       }
       return { success: true, payload };
     })
     .catch((error) => ({
       success: false,
-      message: error instanceof Error ? error.message : "SheetDB request failed"
+      message: error instanceof Error ? error.message : "Google Sheets request failed"
     }));
 }
 
